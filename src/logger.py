@@ -2,19 +2,27 @@ import logging
 import os
 from datetime import datetime
 
-LOG_FILE=f"{datetime.now().strftime('%m_%d_%Y_%H_%M_%S')}.log"
-logs_path = os.path.join(os.getcwd(), "logs", LOG_FILE)
+# Create logs directory
+logs_path = os.path.join(os.getcwd(), "logs")
 os.makedirs(logs_path, exist_ok=True)
 
+# Generate log filename
+LOG_FILE = f"{datetime.now().strftime('%m_%d_%Y_%H_%M_%S')}.log"
 LOG_FILE_PATH = os.path.join(logs_path, LOG_FILE)
 
-logging.basicConfig(filename=LOG_FILE_PATH, format="[ %(asctime)s ] %(lineno)d %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
+# Configure logging
+logging.basicConfig(
+    filename=LOG_FILE_PATH, 
+    format="[ %(asctime)s ] %(lineno)d %(name)s - %(levelname)s - %(message)s", 
+    level=logging.INFO
+)
 
+# Create a logger that can be imported
+logger = logging.getLogger(__name__)
 
 if __name__=="__main__":
-    logging.info("This is a info message")
-    logging.error("This is a error message")
-    logging.warning("This is a warning message")
-    logging.debug("This is a debug message")
-    logging.critical("This is a critical message")
-    logging.exception("This is a exception message")
+    logger.info("This is an info message")
+    logger.error("This is an error message")
+    logger.warning("This is a warning message")
+    logger.debug("This is a debug message")
+    logger.critical("This is a critical message")
